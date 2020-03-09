@@ -13,6 +13,7 @@ import {
   Platform,
   Image,
   TextInput,
+  SafeAreaView,
 } from 'react-native';
 import { BlueNavigationStyle, BlueLoading, BlueCard } from '../../BlueComponents';
 import PropTypes from 'prop-types';
@@ -409,18 +410,10 @@ export default class HodlHodl extends Component {
 
   renderChooseSideModal = () => {
     return (
-      <Modal
-        isVisible={this.state.isChooseSideModalVisible}
-        style={styles.bottomModal}
-        onBackdropPress={() => {
-          Keyboard.dismiss();
-          this.setState({ isChooseSideModalVisible: false });
-        }}
-      >
+      <SafeAreaView>
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'position' : null}>
-          <View style={styles.modalContentShort}>
+          <View>
             <FlatList
-              style={{ width: '100%' }}
               ItemSeparatorComponent={() => <View style={{ height: 0.5, width: '100%', backgroundColor: '#C8C8C8' }} />}
               data={[
                 { code: HodlHodlApi.FILTERS_SIDE_VALUE_SELL, name: "I'm buying bitcoin" },
@@ -439,9 +432,16 @@ export default class HodlHodl extends Component {
                 </TouchableHighlight>
               )}
             />
+              <Modal
+        isVisible={this.state.isChooseSideModalVisible}
+        style={styles.bottomModal}
+        onBackdropPress={() => {
+          Keyboard.dismiss();
+          this.setState({ isChooseSideModalVisible: false });
+        }}
+      />
           </View>
-        </KeyboardAvoidingView>
-      </Modal>
+        </KeyboardAvoidingView></SafeAreaView>
     );
   };
 
